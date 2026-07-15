@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: yt-summarizer-api
+    runtime: node
+    region: oregon          # change to your preferred region
+    plan: free              # Render free tier
+    rootDir: server
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false         # set manually in Render dashboard
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: DATABASE_SSL
+        value: "true"       # Neon requires SSL; keep this true
