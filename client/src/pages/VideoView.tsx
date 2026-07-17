@@ -125,11 +125,12 @@ export function VideoView() {
             />
           </main>
 
-          {video.status === 'ready' && (
-            <aside className={styles.sidebar}>
+          {/* Sidebar always rendered — avoids layout shift when status → ready */}
+          <aside className={styles.sidebar}>
+            {video.status === 'ready' && (
               <SimilarVideos videoId={video.videoId} onSelect={handleSimilarSelect} />
-            </aside>
-          )}
+            )}
+          </aside>
         </div>
       )}
     </div>

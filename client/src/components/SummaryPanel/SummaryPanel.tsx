@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown';
 import type { VideoResponse } from '../../types';
 import styles from './SummaryPanel.module.css';
 
@@ -63,9 +64,7 @@ export function SummaryPanel({ video }: Props) {
 
       {video.summary && (
         <div className={styles.summary}>
-          {video.summary.split('\n').map((line, i) => (
-            <p key={i}>{line}</p>
-          ))}
+          <ReactMarkdown>{video.summary}</ReactMarkdown>
         </div>
       )}
     </section>

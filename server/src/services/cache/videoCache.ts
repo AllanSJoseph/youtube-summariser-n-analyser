@@ -106,7 +106,7 @@ export async function upsertVideo(input: UpsertVideoInput): Promise<string> {
        channel_title = EXCLUDED.channel_title,
        transcript    = COALESCE(EXCLUDED.transcript, videos.transcript),
        has_captions  = EXCLUDED.has_captions,
-       stats_json    = EXCLUDED.stats_json,
+       stats_json    = COALESCE(EXCLUDED.stats_json, videos.stats_json),
        summary       = COALESCE(EXCLUDED.summary, videos.summary),
        status        = EXCLUDED.status,
        cached_at     = now()
