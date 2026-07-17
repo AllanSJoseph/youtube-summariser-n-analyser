@@ -47,6 +47,12 @@ export function SummaryPanel({ video }: Props) {
         </div>
       )}
 
+      {status === 'failed' && (
+        <div className={styles.failed}>
+          ❌ Analysis failed. Please try submitting the video again.
+        </div>
+      )}
+
       {isProcessing && (
         <div className={styles.skeleton}>
           <div className={styles.skeletonLine} />

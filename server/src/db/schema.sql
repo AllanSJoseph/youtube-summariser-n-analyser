@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS videos (
   stats_json     JSONB,                   -- { views, likes, commentCount, uploadDate }
   summary        TEXT,                    -- cached LLM summary
   status         TEXT NOT NULL DEFAULT 'processing'
-                   CHECK (status IN ('ready', 'processing', 'no_captions')),
+                   CHECK (status IN ('ready', 'processing', 'no_captions', 'failed')),
   cached_at      TIMESTAMPTZ DEFAULT now()
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS video_embeddings (
   chunk_index         INT NOT NULL,
   chunk_text          TEXT NOT NULL,
   chunk_start_seconds INT,               -- transcript timestamp for citation
-  embedding           VECTOR(768)        -- Gemini text-embedding-004 output dimension
+  embedding           VECTOR(3072)       -- gemini-embedding-001 output dimension
 );
 
 -- ---------------------------------------------------------------------------

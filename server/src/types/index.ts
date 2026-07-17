@@ -2,7 +2,7 @@
 // Shared type definitions — mirror these in client/src/types/index.ts
 // ---------------------------------------------------------------------------
 
-export type VideoStatus = 'ready' | 'processing' | 'no_captions';
+export type VideoStatus = 'ready' | 'processing' | 'no_captions' | 'failed';
 
 export interface VideoStats {
   views: number;

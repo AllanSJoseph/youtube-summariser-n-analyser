@@ -26,7 +26,7 @@ export class GeminiProvider implements LLMProvider {
 
   async generateSummary(transcript: string): Promise<LLMResponse> {
     const model = this.genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-3.1-flash-lite',
       safetySettings: SAFETY_SETTINGS,
     });
 
@@ -51,7 +51,7 @@ ${transcript.slice(0, 30_000)}`;
     context: PromptContext,
   ): AsyncGenerator<LLMStreamChunk> {
     const model = this.genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-3.1-flash-lite',
       safetySettings: SAFETY_SETTINGS,
     });
 
@@ -85,16 +85,19 @@ Answer:`;
       }
       yield { delta: '', done: true };
     } catch (err) {
+      console.log(err)
       throw new AppError('LLM_ERROR', `Gemini chat generation failed: ${String(err)}`, 502);
     }
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
-    const model = this.genAI.getGenerativeModel({ model: 'text-embedding-004' });
+    // gemini-embedding-001 outputs 3072-dim vectors; schema uses 768 — see note below
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
     try {
       const result = await model.embedContent(text);
       return result.embedding.values;
     } catch (err) {
+      console.log(err)
       throw new AppError('LLM_ERROR', `Gemini embedding failed: ${String(err)}`, 502);
     }
   }

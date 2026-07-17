@@ -1,13 +1,15 @@
 /**
  * Applies schema.sql against the DATABASE_URL.
- * Run once: `npx ts-node src/db/migrate.ts`
+ * Run once: `npm run migrate`
  */
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import pool from './client';
 
 async function migrate() {
-  const schemaPath = path.join(__dirname, 'schema.sql');
+  // schema.sql lives alongside this file in src/db/
+  const schemaPath = path.resolve('src', 'db', 'schema.sql');
   const sql = fs.readFileSync(schemaPath, 'utf8');
 
   const client = await pool.connect();

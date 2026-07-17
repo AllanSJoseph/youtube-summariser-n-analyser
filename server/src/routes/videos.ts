@@ -89,8 +89,9 @@ async function processVideoInBackground(videoId: string, youtubeId: string) {
     if (err instanceof AppError && err.code === 'NO_CAPTIONS') {
       await updateVideoStatus(videoId, 'no_captions');
     } else {
+      // Mark as failed so the frontend stops polling and shows an error
       console.error(`Background processing failed for video ${videoId}:`, err);
-      // Leave as 'processing' so the client can retry later
+      await updateVideoStatus(videoId, 'failed');
     }
   }
 }

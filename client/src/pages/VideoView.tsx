@@ -37,6 +37,7 @@ export function VideoView() {
             try {
               const updated = await getVideo(id);
               setVideo(updated);
+              // Stop polling when terminal state is reached
               if (updated.status !== 'processing') {
                 clearInterval(pollId!);
                 pollId = null;
