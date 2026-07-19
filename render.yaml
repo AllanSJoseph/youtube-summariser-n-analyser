@@ -23,3 +23,7 @@ services:
         value: gemini
       - key: DATABASE_SSL
         value: "true"       # Neon requires SSL; keep this true
+      - key: YOUTUBE_PROXY
+        sync: false         # optional proxy string, e.g. http://username:password@proxy.com:8080
+      - key: YOUTUBE_COOKIES
+        sync: false         # optional cookies string, e.g. CONSENT=YES+...
